@@ -1,1 +1,28 @@
 # Prot-tipo-Bazar-do-Armarinho
+
+# Sistema de Controle de Estoque para Bazar
+
+## Descrição
+O projeto consiste no desenvolvimento de um sistema simples para auxiliar no controle de produtos, estoque e vendas de um bazar.
+
+## Problema identificado
+Atualmente, o controle é realizado por meio de uma planilha, que apresenta dificuldades para consultar produtos e acompanhar o estoque.
+
+## Objetivo
+Desenvolver uma aplicação que facilite o cadastro de produtos, a consulta de estoque e o registro de vendas.
+
+## MVP
+- Cadastro de produtos.
+- Consulta de produtos e estoque.
+- Registro de vendas.
+- Atualização automática do estoque após uma venda.
+
+## Tecnologias previstas
+- Python
+- Flask
+- HTML
+- CSS
+- SQLite
+
+## Status
+Projeto em fase inicial de desenvolvimento.
