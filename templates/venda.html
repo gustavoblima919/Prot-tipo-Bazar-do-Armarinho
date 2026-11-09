@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar venda - Bazar do Armarinho</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="container">
+
+        <h1>Bazar do armarinho</h1>
+        <h2>Registro de venda</h2>
+
+        {% with mensagens = get_flashed_messages() %}
+            {% for mensagem in mensagens %}
+                <p class="mensagem">{{ mensagem }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('venda') }}">
+
+            <label for="produto_id">Produto</label>
+
+            <select id="produto_id" name="produto_id" required>
+                <option value="">Selecione um produto</option>
+
+                {% for produto in produtos %}
+                    {% if produto["quantidade"] > 0 %}
+                        <option value="{{ produto['id'] }}">
+                            {{ produto["nome"] }} -
+                            {{ produto["quantidade"] }} disponíveis
+                        </option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <label for="quantidade">Quantidade vendida</label>
+
+            <input
+                type="number"
+                id="quantidade"
+                name="quantidade"
+                min="1"
+                step="1"
+                required
+            >
+
+            <div class="acoes">
+                <button type="submit">Confirmar venda</button>
+                <a href="{{ url_for('inicio') }}">Cancelar</a>
+            </div>
+
+        </form>
+
+        <h2>Histórico de vendas</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço unitário</th>
+                    <th>Total</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for registro in vendas %}
+                <tr>
+                    <td>{{ registro["nome"] }}</td>
+                    <td>{{ registro["quantidade"] }}</td>
+                    <td>R$ {{ "%.2f"|format(registro["preco_unitario"]) }}</td>
+                    <td>R$ {{ "%.2f"|format(registro["total"]) }}</td>
+                    <td>{{ registro["data_venda"] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">Nenhuma venda registrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </main>
+
+</body>
+</html>

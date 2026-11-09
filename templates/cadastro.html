@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de produto - Bazar do Armarinho</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="container">
+        <h1>Bazar do armarinho</h1>
+        <h2>Cadastro de produto</h2>
+
+        {% with mensagens = get_flashed_messages() %}
+            {% for mensagem in mensagens %}
+                <p class="mensagem">{{ mensagem }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('cadastro') }}">
+
+            <label for="nome">Nome do produto</label>
+            <input type="text" id="nome" name="nome" required maxlength="100">
+
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria" required>
+                <option value="">Selecione uma categoria</option>
+                <option value="Bijuteria">Bijuteria</option>
+                <option value="Roupa">Roupa</option>
+                <option value="Brinquedo">Brinquedo</option>
+                <option value="Bebida">Bebida</option>
+                <option value="Alimento">Alimento</option>
+                <option value="Outros">Outros</option>
+            </select>
+
+            <label for="preco">Preço (R$)</label>
+            <input type="number" id="preco" name="preco"
+                   min="0.01" step="0.01" required>
+
+            <label for="quantidade">Quantidade em estoque</label>
+            <input type="number" id="quantidade" name="quantidade"
+                   min="0" step="1" required>
+
+            <p>Preencha os dados para cadastrar um novo item no estoque.</p>
+
+            <div class="acoes">
+                <button type="submit">Salvar produto</button>
+                <a href="{{ url_for('inicio') }}">Cancelar</a>
+            </div>
+
+        </form>
+    </main>
+
+</body>
+</html>

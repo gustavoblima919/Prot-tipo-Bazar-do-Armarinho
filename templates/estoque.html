@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de estoque - Bazar do Armarinho</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="container">
+
+        <h1>Bazar do armarinho</h1>
+        <h2>Consulta de estoque</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do produto</th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto["nome"] }}</td>
+                    <td>{{ produto["categoria"] }}</td>
+                    <td>{{ produto["quantidade"] }}</td>
+                    <td>R$ {{ "%.2f"|format(produto["preco"]) }}</td>
+
+                    <td>
+                        {% if produto["quantidade"] == 0 %}
+                            <span class="sem-estoque">Sem estoque</span>
+                        {% elif produto["quantidade"] <= 2 %}
+                            <span class="estoque-baixo">Estoque baixo</span>
+                        {% else %}
+                            <span class="estoque-normal">Disponível</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">Nenhum produto cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="acoes">
+            <a href="{{ url_for('cadastro') }}">Cadastrar produto</a>
+            <a href="{{ url_for('inicio') }}">Voltar ao início</a>
+        </div>
+
+    </main>
+
+</body>
+</html>
